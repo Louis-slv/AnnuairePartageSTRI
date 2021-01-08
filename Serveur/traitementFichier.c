@@ -24,7 +24,6 @@ void freeUser(Utilisateur *user){
     user->numeroUtilisateur = 0;
 }
 
-
 //SALVAGNIAC LOUIS
 int verifierConnexion(char *identifiant,char *mdp){
     
@@ -142,7 +141,6 @@ int creerFichiersUtilisateur(char *numeroUtilisateur){
     FILE *perm = fopen(path3,"w");
 }
 
-
 int supprimerDossierUtilisateur(char *numeroUtilisateur){
   //  char *numeroUtilisateur = identifiant;
     char commande[20]= "";
@@ -205,10 +203,6 @@ int ajouterLigneFichierUser(Utilisateur nouveau){
         fclose(utilisateur); // on ferme le fichier
         return numeroMaxUser+1; //On retourne le numéro d'utlisateur
     }
-    
-  
-
-
 }
 //Alex
 int modifierUtilisateur(Utilisateur modifier){
