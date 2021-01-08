@@ -184,7 +184,7 @@ int traiterEtat31(Ligne requete[],unsigned int taille){
 
         char *donnee = chercherDonnee(requete,taille,"Data");
 
-        int numUtil =  ajouterLigneFichierUser(fabriquerUtilisateur(donnee));  
+        int numUtil =  ajouterLigneFichierUser(fabriquerUtilisateur(donnee,0));  
         char *numUtilStr = (char *) calloc(10,sizeof(char));
 	    sprintf(numUtilStr,"%d",numUtil);
 
@@ -223,7 +223,7 @@ int traiterEtat33(Ligne requete[],unsigned int taille){
     if(strcmp(getMethode(requete),"GODATA") == 0){
 
         char *donnee = chercherDonnee(requete,taille,"Data");   
-        modifierUtilisateur(fabriquerUtilisateur(donnee));
+        modifierUtilisateur(fabriquerUtilisateur(donnee,1));
         envoyerReponse("31","200",NULL,"Utilisateur correctement modifier");
 
     }else{

@@ -153,18 +153,26 @@ int supprimerDossierUtilisateur(char *numeroUtilisateur){
 
 //SALVAGNIAC LOUIS
 //Fabrique un utilisateur a partir des données d'une requête
-Utilisateur fabriquerUtilisateur(char *donnee){
+Utilisateur fabriquerUtilisateur(char *donnee,int withNumUser){
 
     Utilisateur user;
     initUser(&user);
-
-    user.numeroUtilisateur = atoi(strtok(donnee," "));
-    user.prenom = strtok(NULL," ");
-    user.nom = strtok(NULL," ");
-    user.email = strtok(NULL," ");
-    user.tel = strtok(NULL," ");
-    user.identifiant = strtok(NULL," ");
-    user.mdp = strtok(NULL," ");
+    if(withNumUser == 1){
+        user.numeroUtilisateur = atoi(strtok(donnee," "));
+        user.prenom = strtok(NULL," ");
+        user.nom = strtok(NULL," ");
+        user.email = strtok(NULL," ");
+        user.tel = strtok(NULL," ");
+        user.identifiant = strtok(NULL," ");
+        user.mdp = strtok(NULL," ");
+    }else{
+        user.prenom = strtok(donnee," ");
+        user.nom = strtok(NULL," ");
+        user.email = strtok(NULL," ");
+        user.tel = strtok(NULL," ");
+        user.identifiant = strtok(NULL," ");
+        user.mdp = strtok(NULL," ");
+    }
 
     return user;
 
