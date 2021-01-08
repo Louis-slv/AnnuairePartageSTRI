@@ -79,4 +79,6 @@ int ajouterLigneFichierUser(Utilisateur nouveau);
 //ALEXANDRE SALIOU
 int modifierUtilisateur(Utilisateur modifier);
 
+//ALEXANDRE SALIOU
+char* afficherUtilisateurs();
 #endif

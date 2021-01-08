@@ -267,3 +267,50 @@ int modifierUtilisateur(Utilisateur modifier){
         fclose(utilisateur);
     }
 }
+//ALEXANDRE SALIOU
+char* afficherUtilisateurs(){
+  FILE *utilisateur = fopen("utilisateur","r"); // ouverture du fichier
+     char data[10000] ="";
+    char ligne[200];
+    
+    //boucle qui annonce si l'ouverture s'est mal faite
+    if(utilisateur == NULL){ 
+       printf("Le fichier utilsiateur ne s'est pas ouvert\n");
+    }
+
+
+    // Sinon qui permet de travailler sur le programme
+    else if (utilisateur != NULL)
+    {
+        // On peut lire et écrire dans le fichier
+        // boucle permettant de recuperer les numeros d'utilisateurs
+        Utilisateur courant;
+        while(fgets(ligne,200,utilisateur) != NULL){
+            initUser(&courant);
+            sscanf(ligne,"%d %s %s %s %s %s %s",&courant.numeroUtilisateur,
+                                                courant.prenom,
+                                                courant.nom, 
+                                                courant.email, 
+                                                courant.tel,
+                                                courant.identifiant,
+                                                courant.mdp);
+            char numUserSTR[5] = "";
+            sprintf(numUserSTR,"%d",courant.numeroUtilisateur);
+            strcat(data,numUserSTR);
+            strcat(data," ");
+            strcat(data,courant.prenom);
+            strcat(data," ");
+            strcat(data,courant.nom);
+            strcat(data," ");
+            strcat(data,courant.email);
+            strcat(data," ");
+            strcat(data,courant.tel);
+            strcat(data,"|");
+            freeUser(&courant);
+        }
+        data[strlen(data)-1] = '\0';
+        // printf("%s",data);
+    fclose(utilisateur);
+    return data;
+    }
+}
