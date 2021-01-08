@@ -206,6 +206,61 @@ int ajouterLigneFichierUser(Utilisateur nouveau){
         return numeroMaxUser+1; //On retourne le numéro d'utlisateur
     }
     
+  
 
 
+}
+//Alex
+int modifierUtilisateur(Utilisateur modifier){
+    int numeroCourant =0;
+    FILE *utilisateur = fopen("utilisateur","r+"); // ouverture du fichier
+    char *contenuFichier = (char *) calloc(sizeof(char), 100);
+    char ligne[150] = "";
+    //boucle qui annonce si l'ouverture s'est mal faite
+    if(utilisateur == NULL){ 
+       printf("le fichier ne  s'est pas ouvert\n");
+        exit(1);
+    }
+    // Sinon qui permet de travailler sur le programme
+    else if (utilisateur != NULL)
+    {
+        // On peut lire et écrire dans le fichier
+        // boucle permettant de recuperer les numeros d'utilisateurs
+        while(fgets(ligne,100,utilisateur) != NULL){
+            sscanf(ligne,"%d",&numeroCourant);
+            //printf("%s",ligne);
+            if (numeroCourant != modifier.numeroUtilisateur){
+                //copiage des la ligne dans
+                if(strlen(contenuFichier)+strlen(ligne) > strlen(contenuFichier)){
+
+                    contenuFichier = realloc(contenuFichier,strlen(contenuFichier) + 200);
+                }
+                strcat(contenuFichier,ligne);
+            }
+            
+        //fseek(utilisateur, 0, SEEK_END); // on se met à la fin du fichier
+        }
+        fclose(utilisateur);
+    }
+    // recopiage du nouveau tenumeroUtilisateurte sans la ligne supprimée
+    utilisateur = fopen("utilisateur","w+"); // ouverture du fichier
+    //boucle qui annonce si l'ouverture s'est mal faite
+    if(utilisateur == NULL){ 
+       printf("le fichier ne  s'est pas ouvert\n");
+        exit(1);
+    }
+    // Sinon qui permet de travailler sur le programme
+    else if (utilisateur != NULL)
+    {
+        // On peut lire et écrire dans le fichier
+        // boucle permettant de recuperer les numeros d'utilisateurs
+        fputs(contenuFichier,utilisateur);
+        fprintf(utilisateur,"\n%d %s %s %s %s %s %s",modifier.numeroUtilisateur,modifier.prenom,
+                                                                modifier.nom, 
+                                                                modifier.email, 
+                                                                modifier.tel,
+                                                                modifier.identifiant,
+                                                                modifier.mdp);
+        fclose(utilisateur);
+    }
 }
