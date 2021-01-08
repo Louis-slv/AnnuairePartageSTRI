@@ -115,6 +115,7 @@ int supprimerLigneFichierUser(int numeroUtilisateur){
     {
         // On peut lire et écrire dans le fichier
         // boucle permettant de recuperer les numeros d'utilisateurs
+        contenuFichier[strlen(contenuFichier)-1] = '\0';
         fputs(contenuFichier,utilisateur);
         fclose(utilisateur);
     }
@@ -275,6 +276,8 @@ int modifierUtilisateur(Utilisateur modifier){
         fclose(utilisateur);
     }
 }
+
+
 //ALEXANDRE SALIOU
 char* afficherUtilisateurs(){
   FILE *utilisateur = fopen("utilisateur","r"); // ouverture du fichier
