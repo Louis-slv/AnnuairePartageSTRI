@@ -74,7 +74,9 @@ int creerFichiersUtilisateur(char *numeroUtilisateur);
 
 //ALEXANDRE SALIOU
 int ajouterLigneFichierUser(Utilisateur nouveau);
-//Alex
+
+
+//ALEXANDRE SALIOU
 int modifierUtilisateur(Utilisateur modifier);
 
 #endif

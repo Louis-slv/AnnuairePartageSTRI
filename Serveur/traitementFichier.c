@@ -145,8 +145,9 @@ int supprimerDossierUtilisateur(char *numeroUtilisateur){
   //  char *numeroUtilisateur = identifiant;
     char commande[20]= "";
     strcat(commande, "rm -r ");
-   strcat(commande, numeroUtilisateur);
-   system(commande);
+    strcat(commande, numeroUtilisateur);
+    printf("%s",commande);
+    system(commande);
 
 }
 
@@ -157,7 +158,8 @@ Utilisateur fabriquerUtilisateur(char *donnee){
     Utilisateur user;
     initUser(&user);
 
-    user.prenom = strtok(donnee," ");
+    user.numeroUtilisateur = atoi(strtok(donnee," "));
+    user.prenom = strtok(NULL," ");
     user.nom = strtok(NULL," ");
     user.email = strtok(NULL," ");
     user.tel = strtok(NULL," ");
@@ -203,9 +205,14 @@ int ajouterLigneFichierUser(Utilisateur nouveau){
         fclose(utilisateur); // on ferme le fichier
         return numeroMaxUser+1; //On retourne le numéro d'utlisateur
     }
+    
+
 }
-//Alex
+
+
+//ALEXANDRE SALIOU
 int modifierUtilisateur(Utilisateur modifier){
+
     int numeroCourant =0;
     FILE *utilisateur = fopen("utilisateur","r+"); // ouverture du fichier
     char *contenuFichier = (char *) calloc(sizeof(char), 100);
@@ -248,13 +255,15 @@ int modifierUtilisateur(Utilisateur modifier){
     {
         // On peut lire et écrire dans le fichier
         // boucle permettant de recuperer les numeros d'utilisateurs
+        contenuFichier[strlen(contenuFichier)-1] = '\0';
         fputs(contenuFichier,utilisateur);
-        fprintf(utilisateur,"\n%d %s %s %s %s %s %s",modifier.numeroUtilisateur,modifier.prenom,
-                                                                modifier.nom, 
-                                                                modifier.email, 
-                                                                modifier.tel,
-                                                                modifier.identifiant,
-                                                                modifier.mdp);
+        fprintf(utilisateur,"\n%d %s %s %s %s %s %s",modifier.numeroUtilisateur,
+                                                    modifier.prenom,
+                                                    modifier.nom, 
+                                                    modifier.email, 
+                                                    modifier.tel,
+                                                    modifier.identifiant,
+                                                    modifier.mdp);
         fclose(utilisateur);
     }
 }

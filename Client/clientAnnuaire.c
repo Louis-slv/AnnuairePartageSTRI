@@ -102,7 +102,7 @@ int envoyerRequete(char *methode, char* codeEtat,char *donnee){
     
     strcat(requete,"\r\n");//Fin de requête
 
-    //printf("Emission:\n%s", requete);
+    printf("Emission:\n%s", requete);
     
     if(Emission(requete)!=1) {
         printf("Erreur d'emission");
@@ -114,11 +114,16 @@ int envoyerRequete(char *methode, char* codeEtat,char *donnee){
 }
 
 
-char* entrerDonnee(char* message){
+char* entrerDonnee(char* message,char caractereFin){
     char *donnee = (char *) calloc(sizeof(char),100);
     printf("%s", message);
     scanf("%s",donnee);
-    donnee[strlen(donnee)-1] = '\0';
+    if (caractereFin != NULL){
+        donnee[strlen(donnee)] = caractereFin;
+    }else{
+        donnee[strlen(donnee)] = '\0';
+    }
+
     return donnee;
 }
 
@@ -127,36 +132,29 @@ int ajouterUtilsateur(){
 
     char *donnee = (char *) calloc(sizeof(char),400);
 
-    char *courant = entrerDonnee("Prenom :");
+    char *courant = entrerDonnee("Prenom :",' ');
     strcat(donnee,courant);
-    strcat(donnee," ");
     free(courant);
 
-    courant = entrerDonnee("Nom :");
+    courant = entrerDonnee("Nom :",' ');
     strcat(donnee,courant);
-    strcat(donnee," ");
     free(courant);
 
-    courant = entrerDonnee("Email :");
+    courant = entrerDonnee("Email :",' ');
     strcat(donnee,courant);
-    strcat(donnee," ");
     free(courant);
 
-    courant = entrerDonnee("Tel :");
+    courant = entrerDonnee("Tel :",' ');
     strcat(donnee,courant);
-    strcat(donnee," ");
     free(courant);
 
-    courant = entrerDonnee("Identifiant :");
+    courant = entrerDonnee("Identifiant :",' ');
     strcat(donnee,courant);
-    strcat(donnee," ");
     free(courant);
 
-    courant = entrerDonnee("Mot de passe :");
+    courant = entrerDonnee("Mot de passe :",' ');
     strcat(donnee,courant);
-    strcat(donnee," ");
     free(courant);
-
 
     envoyerRequete("GODATA","31",donnee);
 
@@ -169,8 +167,47 @@ int ajouterUtilsateur(){
 
 int supprimerUtilisateur(){
     
-    char *numUser = entrerDonnee("Entrez le numero de l'utilisateur : ");
+    char *numUser = entrerDonnee("Entrez le numero de l'utilisateur : ",NULL);
     envoyerRequete("GODATA","32",numUser);
 
     free(numUser);
+}
+
+
+
+int modifierUtilisateur(){
+
+    char *donnee = (char *) calloc(sizeof(char),400);
+
+    char *courant = entrerDonnee("Entrez le numero de l'utilisateur : ",' ');
+    strcat(donnee,courant);
+    free(courant);
+
+
+    courant = entrerDonnee("Prenom :",' ');
+    strcat(donnee,courant);
+    free(courant);
+
+    courant = entrerDonnee("Nom :",' ');
+    strcat(donnee,courant);
+    free(courant);
+
+    courant = entrerDonnee("Email :",' ');
+    strcat(donnee,courant);
+    free(courant);
+
+    courant = entrerDonnee("Tel :",' ');
+    strcat(donnee,courant);
+    free(courant);
+
+    courant = entrerDonnee("Identifiant :",' ');
+    strcat(donnee,courant);
+    free(courant);
+
+    courant = entrerDonnee("Mot de passe :",NULL);
+    strcat(donnee,courant);
+    free(courant);
+
+    envoyerRequete("GODATA","33",donnee);
+
 }

@@ -75,13 +75,19 @@ int main() {
 
 		//Action de l'utilisateur
 		if(strcmp(codeErreur,"101") == 0){
-			char *choix = entrerDonnee("Entrez votre choix : ");
+			char choix[50];
+			printf("Entrez votre choix :");
+			scanf("%s",choix);	
 			if(strcmp(choix,"31") == 0){
 				ajouterUtilsateur();		
 			}else if(strcmp(choix,"32") == 0){
 				supprimerUtilisateur();
+			}else if(strcmp(choix,"33") == 0){
+				modifierUtilisateur();
+			}else{
+				printf("Ce choix n'existe pas !");
 			}
-			free(choix);
+			//free(choix);
 		}else if(strcmp(codeErreur,"100") == 0){
 			//traiter les fonction d'un user normale
 		}

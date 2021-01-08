@@ -41,5 +41,6 @@ int traiterEtat31(Ligne requete[],unsigned int taille);
 
 int traiterEtat32(Ligne requete[],unsigned int taille);
 
+int traiterEtat33(Ligne requete[],unsigned int taille);
 
 #endif
