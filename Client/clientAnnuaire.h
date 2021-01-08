@@ -18,21 +18,37 @@ struct Ligne
 };
 
 
+
+
 char* traiterReponse(char *reponse);
+
+
 
 
 Ligne traiterLigneReponse(char *ligneStr);
 
 
+
 char* chercherDonnee(Ligne *reponse,unsigned int tailleRep,const char *libelle);
+
 
 
 int envoyerRequete(char *methode, char* codeEtat,char *donnee);
 
+
+
+
 int ajouterUtilsateur();
+
+
 
 int supprimerUtilisateur();
 
-char* entrerDonnee(char* message);
+
+
+int modifierUtilisateur();
+
+
+char* entrerDonnee(char* message,char caractereFin);
 
 #endif

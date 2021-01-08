@@ -10,8 +10,7 @@ const size_t TAILLE_REQUETE = 150;
 
 
 int main() {
-
-
+	
 	char *message = NULL;
 	char *requete = NULL;
 

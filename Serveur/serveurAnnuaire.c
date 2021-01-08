@@ -28,6 +28,8 @@ int traiterRequete(char *requeteStr){
         traiterEtat31(requete,i);
     }else if(strcmp(getEtat(requete),"32") == 0 ){
         traiterEtat32(requete,i);
+    }else if(strcmp(getEtat(requete),"33") == 0 ){
+        traiterEtat33(requete,i);
     }
 
 
@@ -208,6 +210,21 @@ int traiterEtat32(Ligne requete[],unsigned int taille){
 
 
         envoyerReponse("31","200",NULL,"Utilisateur correctement supprimer");
+
+    }else{
+        
+     
+    }
+}
+
+
+int traiterEtat33(Ligne requete[],unsigned int taille){
+
+    if(strcmp(getMethode(requete),"GODATA") == 0){
+
+        char *donnee = chercherDonnee(requete,taille,"Data");   
+        modifierUtilisateur(fabriquerUtilisateur(donnee));
+        envoyerReponse("31","200",NULL,"Utilisateur correctement modifier");
 
     }else{
         
