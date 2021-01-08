@@ -24,7 +24,6 @@ void freeUser(Utilisateur *user){
     user->numeroUtilisateur = 0;
 }
 
-
 //SALVAGNIAC LOUIS
 int verifierConnexion(char *identifiant,char *mdp){
     
@@ -141,7 +140,6 @@ int creerFichiersUtilisateur(char *numeroUtilisateur){
     strcat(path3,"/perm.an");
     FILE *perm = fopen(path3,"w");
 }
-
 
 int supprimerDossierUtilisateur(char *numeroUtilisateur){
   //  char *numeroUtilisateur = identifiant;
