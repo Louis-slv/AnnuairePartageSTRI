@@ -23,34 +23,38 @@ struct Utilisateur
 
 
 
-////CREATION
-int ajouterUtilisateur(Utilisateur nouveau);
-
-int creerDossierUtilisateur(char *numeroUtilisateur);
 
 //creer un fichier 'perm', 'mesContact.an'
 int creerFichiersUtilisateur(char *numeroUtilisateur);
 
+
+//LOUIS SALVAGNIAC
+//Initilise un Utilisateur en mémoir
 void initUser(Utilisateur *user);
 
 
-
+//LOUIS SALVAGNIAC
+//Libère l'espace mémoir de l'utilisateur 'user'
 void freeUser(Utilisateur *user);
 
+
+
 //SALVAGNIAC LOUIS
+//Retourne 1 si l'identifiant est le mot de passe sont correct, sinon 0
 int verifierConnexion(char *identifiant,char *mdp);
 
 //SALVAGNIAC LOUIS
+//Fabrique un utilisateur a partir des données d'une requête (chaine de caractère)
 Utilisateur fabriquerUtilisateur(char *donnee);
 
-int estMDPExistant(char *identifiant);
 
-int supprimerUtilisateur(char *identifiant);
-
+//ALEXANDRE SALIOU
+//Supprimer la ligne contenant les informations de l'utilisateur 
+//Identifier par son numeroUtilisateur
 int supprimerLigneFichierUser(int numeroUtilisateur);
 
-int chercherUtilisateur(char *numeroUtilisateur);
 
+////////A TOI DE COMMENTER CA/////////
 
 //ALEXANDRE SALIOU
 int ajouterLigneFichierUser(Utilisateur nouveau);
