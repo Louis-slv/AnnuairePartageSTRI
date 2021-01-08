@@ -152,7 +152,7 @@ int ajouterUtilsateur(){
     strcat(donnee,courant);
     free(courant);
 
-    courant = entrerDonnee("Mot de passe :",' ');
+    courant = entrerDonnee("Mot de passe :",NULL);
     strcat(donnee,courant);
     free(courant);
 

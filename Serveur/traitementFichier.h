@@ -45,7 +45,7 @@ int verifierConnexion(char *identifiant,char *mdp);
 
 //SALVAGNIAC LOUIS
 //Fabrique un utilisateur a partir des données d'une requête (chaine de caractère)
-Utilisateur fabriquerUtilisateur(char *donnee);
+Utilisateur fabriquerUtilisateur(char *donnee,int withNumUser);
 
 
 //ALEXANDRE SALIOU
