@@ -236,7 +236,7 @@ int modifierUtilisateur(Utilisateur modifier){
     {
         // On peut lire et écrire dans le fichier
         // boucle permettant de recuperer les numeros d'utilisateurs
-        while(fgets(ligne,100,utilisateur) != NULL){ // tant qu'on est pas à la fin du fichier on reste dans la boucle
+        while(fgets(ligne,100,utilisateur) != NULL){ //boucle qui s'execute tant qu'on est pas a la fin du programme
             sscanf(ligne,"%d",&numeroCourant); // on fait un scanf mais avec la chaine de caractère "ligne" qui se mettra dans l'adresse de numeroCourant
 
             // boucle ou on rentre dedans quand on est dans la ligne à modifier
@@ -280,10 +280,12 @@ int modifierUtilisateur(Utilisateur modifier){
 
 
 //ALEXANDRE SALIOU
+// Fonction qui a pour but de prendre toutes les informations de chauqe utilisateur (sauf identifiant et mdp) et de les mettre dans une
+// chaine de caractère, chaque paquete d'info de chaque utilisateur sera séparé par un "|"
 char* afficherUtilisateurs(){
-  FILE *utilisateur = fopen("utilisateur","r"); // ouverture du fichier
-     char data[10000] ="";
-    char ligne[200];
+  FILE *utilisateur = fopen("utilisateur","r"); // ouverture du fichier Utilisateur
+     char data[10000] =""; // on déclare data qui récuperera toutes les informations
+    char ligne[200];  // déclaration de "ligne" qui aura les information de d'une ligne à chaque fois
     
     //boucle qui annonce si l'ouverture s'est mal faite
     if(utilisateur == NULL){ 
@@ -296,8 +298,8 @@ char* afficherUtilisateurs(){
     {
         // On peut lire et écrire dans le fichier
         // boucle permettant de recuperer les numeros d'utilisateurs
-        Utilisateur courant;
-        while(fgets(ligne,200,utilisateur) != NULL){
+        Utilisateur courant; // on déclare courant avec la structure utilisateur 
+        while(fgets(ligne,200,utilisateur) != NULL){ //boucle qui s'execute tant qu'on est pas a la fin du programme
             initUser(&courant);
             sscanf(ligne,"%d %s %s %s %s %s %s",&courant.numeroUtilisateur,
                                                 courant.prenom,
