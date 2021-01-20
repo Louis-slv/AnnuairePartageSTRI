@@ -222,9 +222,9 @@ int ajouterLigneFichierUser(Utilisateur nouveau){
 //ALEXANDRE SALIOU
 int modifierUtilisateur(Utilisateur modifier){
 
-    int numeroCourant =0;
+    int numeroCourant =0; // on déclare un entier qui nous servira par la suite 
     FILE *utilisateur = fopen("utilisateur","r+"); // ouverture du fichier
-    char *contenuFichier = (char *) calloc(sizeof(char), 100);
+    char *contenuFichier = (char *) calloc(sizeof(char), 100); 
     char ligne[150] = "";
     //boucle qui annonce si l'ouverture s'est mal faite
     if(utilisateur == NULL){ 
@@ -236,24 +236,25 @@ int modifierUtilisateur(Utilisateur modifier){
     {
         // On peut lire et écrire dans le fichier
         // boucle permettant de recuperer les numeros d'utilisateurs
-        while(fgets(ligne,100,utilisateur) != NULL){
-            sscanf(ligne,"%d",&numeroCourant);
-            //printf("%s",ligne);
-            if (numeroCourant != modifier.numeroUtilisateur){
-                //copiage des la ligne dans
-                if(strlen(contenuFichier)+strlen(ligne) > strlen(contenuFichier)){
+        while(fgets(ligne,100,utilisateur) != NULL){ // tant qu'on est pas à la fin du fichier on reste dans la boucle
+            sscanf(ligne,"%d",&numeroCourant); // on fait un scanf mais avec la chaine de caractère "ligne" qui se mettra dans l'adresse de numeroCourant
 
-                    contenuFichier = realloc(contenuFichier,strlen(contenuFichier) + 200);
+            // boucle ou on rentre dedans quand on est dans la ligne à modifier
+            if (numeroCourant != modifier.numeroUtilisateur){
+                
+                if(strlen(contenuFichier)+strlen(ligne) > strlen(contenuFichier)){// petite boucle qui augmente la taille du tampon des information quand la taille est depassé par les informations
+
+                    contenuFichier = realloc(contenuFichier,strlen(contenuFichier) + 200); // on augmente la taille du contenuFichier qui est la variable tampon
                 }
-                strcat(contenuFichier,ligne);
+                strcat(contenuFichier,ligne); // on concatène la ligne dans la variable tampon
             }
             
         //fseek(utilisateur, 0, SEEK_END); // on se met à la fin du fichier
         }
-        fclose(utilisateur);
+        fclose(utilisateur); // on ferme le fichier utilisateur
     }
-    // recopiage du nouveau tenumeroUtilisateurte sans la ligne supprimée
-    utilisateur = fopen("utilisateur","w+"); // ouverture du fichier
+    // recopiage du nouveau tenumero Utilisateurte sans la ligne supprimée
+    utilisateur = fopen("utilisateur","w+"); // ouverture du fichier utilisateur
     //boucle qui annonce si l'ouverture s'est mal faite
     if(utilisateur == NULL){ 
        printf("le fichier ne  s'est pas ouvert\n");
@@ -264,16 +265,16 @@ int modifierUtilisateur(Utilisateur modifier){
     {
         // On peut lire et écrire dans le fichier
         // boucle permettant de recuperer les numeros d'utilisateurs
-        contenuFichier[strlen(contenuFichier)-1] = '\0';
-        fputs(contenuFichier,utilisateur);
+        contenuFichier[strlen(contenuFichier)-1] = '\0'; // ligne permettant de supprimer le dernier caractère donc dans notre cas le "\n" de la ligne pour eviter d'avoir un saut de ligne
+        fputs(contenuFichier,utilisateur); // on recole l'entiereté de la variable tampon dans le fichier utilisateur 
         fprintf(utilisateur,"\n%d %s %s %s %s %s %s",modifier.numeroUtilisateur,
                                                     modifier.prenom,
                                                     modifier.nom, 
                                                     modifier.email, 
                                                     modifier.tel,
                                                     modifier.identifiant,
-                                                    modifier.mdp);
-        fclose(utilisateur);
+                                                    modifier.mdp); // on la ligne modifié qui est en paramètre de la fonction dans la suite du fichier
+        fclose(utilisateur); //on ferme le fichier utilisateur
     }
 }
 
