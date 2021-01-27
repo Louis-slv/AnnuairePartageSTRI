@@ -36,7 +36,7 @@ int main() {
 	int deconnexion = 0;
 	while(deconnexion == 0){
 
-		//Authentification
+		//Authentification -> tant que les infos ne sont pas valide
 		while(strcmp(codeErreur,"100") != 0 && strcmp(codeErreur,"101") != 0){
 
 			char *donnee = (char *) calloc(sizeof(char),201);
@@ -55,10 +55,13 @@ int main() {
 
 			free(mdp);
 			free(id);
+
+			//Envoi de la requete d'identification
 			envoyerRequete("GODATA","2",donnee);
 
 			free(donnee);
 
+			//Reception de la reponse
 			message = Reception();
 			if(message != NULL) {
 				//printf("J'ai recu: %s\n", message);
@@ -73,11 +76,15 @@ int main() {
 		}
 		
 
-		//Action de l'utilisateur
+		//Action de l'administrateur une fois authentifier
 		if(strcmp(codeErreur,"101") == 0){
+
+
 			char choix[50];
 			printf("Entrez votre choix :");
-			scanf("%s",choix);	
+			scanf("%s",choix);
+
+			//choix de l'utilisateur et affichage de l'intface correpondante
 			if(strcmp(choix,"31") == 0){
 				ajouterUtilsateur();		
 			}else if(strcmp(choix,"32") == 0){
@@ -92,6 +99,7 @@ int main() {
 			//traiter les fonction d'un user normale
 		}
 
+		//Reception de la reponse du serveur sur l'action affectué
 		message = Reception();
 		if(message != NULL) {
 			//printf("J'ai recu: %s\n", message);

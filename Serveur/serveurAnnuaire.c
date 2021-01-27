@@ -12,6 +12,8 @@ int traiterRequete(char *requeteStr){
     char *ligne = strtok(requeteStr,separateur);
     unsigned int i = 0; //représente le nombre de ligne de la requete
     
+
+    //Transforme chaque ligne en strcture Ligne
     while(ligne != NULL){
         requete[i] = traiterLigneRequete(ligne);
         ligne = strtok(NULL,separateur);
@@ -19,7 +21,7 @@ int traiterRequete(char *requeteStr){
         i++;
     }
 
-    
+    //Choisi le traitement adéquat en fonction du codeEtat de la requete
     if(strcmp(getEtat(requete),"1") == 0){
         traiterEtat1(requete);
     }else if(strcmp(getEtat(requete),"2") == 0 || strcmp(getEtat(requete),"3") == 0){
@@ -33,10 +35,6 @@ int traiterRequete(char *requeteStr){
     }
 
 
-    //traiterEtat1(requete);
-    
-    //free(requete);
-
 }
 
 
@@ -44,11 +42,13 @@ Ligne traiterLigneRequete(char *ligneStr){
     
     int parti = 0;
     int i = 0;
-    Ligne ligne;
-    
+
+    //Création d'une nouvelle strcture ligne
+    Ligne ligne;   
     ligne.libelle = (char *) calloc(TAILLE_MAX,sizeof(char));
     ligne.donnee = (char *) calloc(1000,sizeof(char));
 
+    //Pour chaque caractère de la ligne...
     for(i ; i < strlen(ligneStr) ; i++){
 
         //Passage du libelle aux donnees
@@ -76,11 +76,11 @@ Ligne traiterLigneRequete(char *ligneStr){
 
 char* chercherDonnee(Ligne requete[],unsigned int taille,const char *libelle){
 
-    
+    //Pour chaque ligne de la requete...
     for(int i = 0 ; i < taille ; i++){
         if(strcmp(requete[i].libelle,libelle) == 0){
             
-            return requete[i].donnee;  
+            return requete[i].donnee;  //Renvoi la donnée correspondante
        }
     }
 
@@ -102,6 +102,8 @@ int envoyerReponse(char *etat, char* codeErreur,char *donnee,char *message){
 
     char *reponse = (char *) calloc(sizeof(char),TAILLE_MAX);
 
+
+    //AJout des différents champs de la réponse
     strcat(reponse,etat);
     strcat(reponse,":");
     strcat(reponse,codeErreur);
@@ -133,7 +135,7 @@ int envoyerReponse(char *etat, char* codeErreur,char *donnee,char *message){
 
     printf("Emission:\n%s", reponse);
     
-    
+    //Envoi de la réponse
     if(Emission(reponse)!=1) {
         printf("Erreur d'emission");
         return 1;
@@ -158,11 +160,13 @@ int traiterEtat2et3(Ligne requete[],unsigned int taille){
         envoyerReponse(getEtat(requete),"300",NULL,"Acces refuse");
     }else{
         
+        //Recupération de l'id et du mdp dans la requete
         char *id = strtok(chercherDonnee(requete,taille,"Data")," ");
         char *mdp = strtok(NULL," ");
+
+        //Vérification des infos d'authentification et envoi de la réponse avec le menus correspondant
         if(verifierConnexion(id,mdp) == 0){
             if(strcmp(id,"admin") == 0){
-                printf("log admin");
                 envoyerReponse("3","101",NULL,"31 -> AJouter | 32 -> Supprimer | 33 -> Modifier | 1 -> Deconnexion");
             }else{
                 envoyerReponse("2","100",NULL,"21 -> Mon annuaire | 22 -> Mes infos | 23 -> Mes Annuaire | 1 -> Deconnexion");
@@ -184,10 +188,14 @@ int traiterEtat31(Ligne requete[],unsigned int taille){
 
         char *donnee = chercherDonnee(requete,taille,"Data");
 
+
+        //AJout du nouveau user dans le fichier
         int numUtil =  ajouterLigneFichierUser(fabriquerUtilisateur(donnee,0));  
         char *numUtilStr = (char *) calloc(10,sizeof(char));
 	    sprintf(numUtilStr,"%d",numUtil);
 
+
+        //Creation du dossier du nouveau user
         creerFichiersUtilisateur(numUtilStr);
         envoyerReponse("31","200",NULL,"Utilisateur correctement ajouter");
 
@@ -202,9 +210,13 @@ int traiterEtat31(Ligne requete[],unsigned int taille){
 
 int traiterEtat32(Ligne requete[],unsigned int taille){
 
+    //Si la methode est GODATA
     if(strcmp(getMethode(requete),"GODATA") == 0){
 
+
         char *donnee = chercherDonnee(requete,taille,"Data");
+
+        //On supprime le user dans le fichier utilisateur et aussi ses différents dossier
         supprimerLigneFichierUser(atoi(donnee));
         supprimerDossierUtilisateur(donnee);
 
@@ -218,10 +230,15 @@ int traiterEtat32(Ligne requete[],unsigned int taille){
 }
 
 
+
+
 int traiterEtat33(Ligne requete[],unsigned int taille){
 
+
+    //Si la methode est GODATA   
     if(strcmp(getMethode(requete),"GODATA") == 0){
 
+        //Modification de l'utilisateur dans le fichier
         char *donnee = chercherDonnee(requete,taille,"Data");   
         modifierUtilisateur(fabriquerUtilisateur(donnee,1));
         envoyerReponse("31","200",NULL,"Utilisateur correctement modifier");
