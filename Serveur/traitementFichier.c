@@ -151,6 +151,8 @@ int creerFichiersUtilisateur(char *numeroUtilisateur){
     FILE *perm = fopen(path3,"w"); // on ouvre le fichier en ecriture pour "l'initialiser"
 }
 
+
+
 int supprimerDossierUtilisateur(char *numeroUtilisateur){
   //  char *numeroUtilisateur = identifiant;
     char commande[20]= "";
@@ -242,12 +244,18 @@ int modifierUtilisateur(Utilisateur modifier){
     int numeroCourant =0; // on déclare un entier qui nous servira par la suite 
     FILE *utilisateur = fopen("utilisateur","r+"); // ouverture du fichier
     char *contenuFichier = (char *) calloc(sizeof(char), 100); 
+    char ligne[150] = "";
+
+
+
     char ligne[150] = ""; // déclaration d'un tableau de caractère "ligne" qui par la suite récuperera les informations d'une ligne 
     //boucle qui annonce si l'ouverture s'est mal faite
     if(utilisateur == NULL){ 
        printf("le fichier ne  s'est pas ouvert\n");
         exit(1);
     }
+
+
     // Sinon qui permet de travailler sur le programme
     else if (utilisateur != NULL)
     {

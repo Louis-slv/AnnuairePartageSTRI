@@ -8,7 +8,7 @@
 
 const size_t TAILLE_MAX = 150;
 
-
+//Strcuture de donnees représentant une ligne de la requete
 typedef struct Ligne Ligne;
 struct Ligne
 {
@@ -30,8 +30,9 @@ int main() {
     
 }
 
-
-
+//LOUIS SALVAGNIAC
+//Permet d'envoyer un requête au serveur avec une certaine methode et pour un état codeEtat
+//En transmettant des donnees
 int envoyerRequete(char *methode, char* codeEtat,char *donnee){
     char *requete = (char *) calloc(sizeof(char),TAILLE_MAX);
 
@@ -66,6 +67,9 @@ int envoyerRequete(char *methode, char* codeEtat,char *donnee){
 }
 
 
+
+//LOUIS SALVAGNIAC
+//Permet de traiter une réponse du serveur
 int traiterReponse(char *requeteStr){
     
 	const char *separateur = "\r\n";
@@ -89,6 +93,10 @@ int traiterReponse(char *requeteStr){
 }
 
 
+
+//LOUIS SALVAGNIAC
+//Permet recuperer chaque champ d'une ligne de ma requete dans une
+//strcture de donnée Ligne 
 Ligne traiterLigneReponse(char *ligneStr){
     
     int parti = 0;
@@ -122,6 +130,8 @@ Ligne traiterLigneReponse(char *ligneStr){
     return ligne;
     
 }
+
+
 
 
 char* chercherDonnee(Ligne requete[],unsigned int taille,const char *libelle){
