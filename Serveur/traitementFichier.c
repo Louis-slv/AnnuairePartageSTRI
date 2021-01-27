@@ -146,7 +146,7 @@ int creerFichiersUtilisateur(char *numeroUtilisateur){
     FILE *mesContact = fopen(path2,"w"); // on ouvre le fichier en ecriture pour "l'initialiser"
 
     strcat(path3,path);// on concatène dans le path3 les informations du path pour ne pas avoir à recopier
-    strcat(path3,"/perm.an");// ensuite on rajoute dans le path2 "/perm.an" pour continuer le chemin dans le dossier
+    strcat(path3,"/perm");// ensuite on rajoute dans le path2 "/perm.an" pour continuer le chemin dans le dossier
 
     FILE *perm = fopen(path3,"w"); // on ouvre le fichier en ecriture pour "l'initialiser"
 }
@@ -225,7 +225,7 @@ int ajouterLigneFichierUser(Utilisateur nouveau){
                                                                 nouveau.mdp); 
         
         fclose(utilisateur); // on ferme le fichier
-        return numeroMaxUser+1; //On retourne le numéro d'utlisateur
+        return numeroMaxUser+1; //On retourne le numéro d'utlisateur en l'implémentant de 1
     }
     
 
@@ -348,62 +348,7 @@ char* afficherUtilisateurs(){
 }
 
 
-// ALEXANDRE SALIOU
-// Fonction qui permet à un utilisateur de modifier ses informations
-int modifierUtilisateur(Utilisateur modifier){
 
-    int numeroCourant =0; // on déclare un entier qui nous servira par la suite 
-    FILE *utilisateur = fopen("utilisateur","r+"); // ouverture du fichier
-    char *contenuFichier = (char *) calloc(sizeof(char), 100); 
-    char ligne[150] = ""; // déclaration d'un tableau de caractère "ligne" qui par la suite récuperera les informations d'une ligne 
-    //boucle qui annonce si l'ouverture s'est mal faite
-    if(utilisateur == NULL){ 
-       printf("le fichier ne  s'est pas ouvert\n");
-        exit(1);
-    }
-    // Sinon qui permet de travailler sur le programme
-    else if (utilisateur != NULL)
-    {
-        // On peut lire et écrire dans le fichier
-        // boucle permettant de recuperer les numeros d'utilisateurs
-        while(fgets(ligne,100,utilisateur) != NULL){ //boucle qui s'execute tant qu'on est pas a la fin du programme
-            sscanf(ligne,"%d",&numeroCourant); // on fait un scanf mais avec la chaine de caractère "ligne" qui se mettra dans l'adresse de numeroCourant
 
-            // boucle ou on rentre dedans quand on est dans la ligne à modifier
-            if (numeroCourant != modifier.numeroUtilisateur){
-                
-                if(strlen(contenuFichier)+strlen(ligne) > strlen(contenuFichier)){// petite boucle qui augmente la taille du tampon des information quand la taille est depassé par les informations
-
-                    contenuFichier = realloc(contenuFichier,strlen(contenuFichier) + 200); // on augmente la taille du contenuFichier qui est la variable tampon
-                }
-                strcat(contenuFichier,ligne); // on concatène la ligne dans la variable tampon
-            }
-            
-        //fseek(utilisateur, 0, SEEK_END); // on se met à la fin du fichier
-        }
-        fclose(utilisateur); // on ferme le fichier utilisateur
-    }
-    // recopiage du nouveau tenumero Utilisateurte sans la ligne supprimée
-    utilisateur = fopen("utilisateur","w+"); // ouverture du fichier utilisateur
-    //boucle qui annonce si l'ouverture s'est mal faite
-    if(utilisateur == NULL){ 
-       printf("le fichier ne  s'est pas ouvert\n");
-        exit(1);
-    }
-    // Sinon qui permet de travailler sur le programme
-    else if (utilisateur != NULL)
-    {
-        // On peut lire et écrire dans le fichier
-        // boucle permettant de recuperer les numeros d'utilisateurs
-        contenuFichier[strlen(contenuFichier)-1] = '\0'; // ligne permettant de supprimer le dernier caractère donc dans notre cas le "\n" de la ligne pour eviter d'avoir un saut de ligne
-        fputs(contenuFichier,utilisateur); // on recole l'entiereté de la variable tampon dans le fichier utilisateur 
-        fprintf(utilisateur,"\n%d %s %s %s %s %s %s",modifier.numeroUtilisateur,
-                                                    modifier.prenom,
-                                                    modifier.nom, 
-                                                    modifier.email, 
-                                                    modifier.tel,
-                                                    modifier.identifiant,
-                                                    modifier.mdp); // on rajoute la ligne modifié qui est en paramètre de la fonction dans la suite du fichier
-        fclose(utilisateur); //on ferme le fichier utilisateur
-    }
-}
+// ALEXANDRE SALIOU 
+// 

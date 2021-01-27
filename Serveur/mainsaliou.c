@@ -9,7 +9,62 @@
 
 int main(){
 
+        // Ajouter une permission à un autre utilisateur
+        // en paramètre rentrera le pseudo
+        
+        /*int AjouterPermission(char *pseudo, char *NomAnnuaire)
+         
+        regarder que le pseudo est présent 
+        regarder que l'annuaire n'est pas présent 
+            SInon le rajouter 
 
+        tableau de char 
+        
+
+        */
+        char *testpseudo = "louisslv"; // ce qui rentrera en paramètre
+        char *testannuaire = "Annuaire6";
+        char *annuaireCourant ;
+
+        FILE *permTest = fopen("permTest","r+"); // ouverture du fichier
+        
+        char ligne[100] = ""; // On déclare un tableau de caractère qui servira de tampon
+        char ligne2[100] = ""; // On déclare un tableau de caractère qui servira de tampon
+        const char delimiters[] = " ";
+            //boucle qui annonce si l'ouverture s'est mal faite
+        if(permTest == NULL){ 
+        printf("le fichier ne  s'est pas ouvert\n");
+        exit(1);
+        }
+
+        while(fgets(ligne,100,permTest) != NULL){
+           printf("test %s\n",ligne);
+            char *pseudo = strtok(ligne,delimiters);
+            //printf("test\n");
+            printf("%s\n",pseudo);
+            strcpy(ligne2,ligne);
+            if (strcmp(testpseudo,pseudo)){ // on ne peux pas comparer 2 chaine de caractère avec un == donc on utilise la fonction strcmp
+                printf("Le pseudo existe\n");
+                annuaireCourant = strtok(ligne2,NULL);
+                while(annuaireCourant != NULL){
+                    if (strcmp(annuaireCourant,testannuaire)){
+                        printf("L'annuaire existe déja !");
+                        return 0;
+                    }
+                }
+                printf("Ajout de l'annuaire");
+            }
+           /* else {
+                printf("Le pseudo n'existe pas\n");
+                fseek(permTest, 0, SEEK_END);
+                fprintf("%s %s",testpseudo, testannuaire);
+            }*/
+        }
+
+        fclose(permTest);
+}
+
+/*
      FILE *utilisateur = fopen("utilisateur","r"); // ouverture du fichier
      char data[10000] ="";
     char ligne[200];
@@ -54,7 +109,7 @@ int main(){
     fclose(utilisateur);
     return data;
     }
-
+    */
 
     // prochaine fonction : supprimer le dernier /n 
         
@@ -197,6 +252,6 @@ int main(){
     remove("/mesContact.an")
 
 	rmdir("5");*/
-}
+
     
 
